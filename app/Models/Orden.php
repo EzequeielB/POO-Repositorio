@@ -7,7 +7,6 @@ use Illuminate\Database\Eloquent\Model;
 class Orden extends Model
 {
     protected $fillable = [
-        'id',
         'descripcion',
         'equipo_id',
         'cliente_id',

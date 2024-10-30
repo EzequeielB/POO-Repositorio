@@ -13,7 +13,8 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        //
+        $clientes=Cliente::latest()->paginate(20);
+        return view('clientes.index', ['clientes'=>$clientes]);
     }
 
     /**
@@ -21,7 +22,7 @@ class ClienteController extends Controller
      */
     public function create()
     {
-        //
+        return view('clientes.create');
     }
 
     /**
@@ -29,7 +30,11 @@ class ClienteController extends Controller
      */
     public function store(StoreClienteRequest $request)
     {
-        //
+        $fields = $request->only(['nombre', 'apellido','DNI','telefono','correo']);
+
+        Cliente::create($fields);
+
+        return redirect()->route('clientes.index')->with('success', 'Cliente agregado exitosamente.');
     }
 
     /**
@@ -45,7 +50,7 @@ class ClienteController extends Controller
      */
     public function edit(Cliente $cliente)
     {
-        //
+        return view("clientes.edit",['cliente'=>$cliente]);
     }
 
     /**
@@ -53,7 +58,11 @@ class ClienteController extends Controller
      */
     public function update(UpdateClienteRequest $request, Cliente $cliente)
     {
-        //
+        $fields = $request->only(['nombre', 'apellido','DNI','telefono','correo']);
+
+        $cliente->update($fields);
+
+        return redirect()->route('clientes.index')->with('success', 'Cliente editado exitosamente.');
     }
 
     /**
@@ -61,6 +70,7 @@ class ClienteController extends Controller
      */
     public function destroy(Cliente $cliente)
     {
-        //
+        $cliente->delete();
+        return back()->with('success', 'Cliente exterminado exitosamente.');
     }
 }
