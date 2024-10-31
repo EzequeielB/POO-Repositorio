@@ -3,17 +3,20 @@
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\ClienteController;
 use App\Http\Controllers\EquipoController;
+use App\Http\Controllers\EquiposDeTrabajoController;
 use App\Http\Controllers\OrdenController;
 use App\Http\Controllers\TecnicoController;
 use App\Http\Controllers\VehiculoController;
 use App\Models\Cliente;
 use App\Models\Equipo;
+use App\Models\EquiposDeTrabajo;
 use Illuminate\Support\Facades\Route;
 
 Route::view('/','posts.index')->name('home');
 Route::resource('vehiculos', VehiculoController::class);
 Route::resource('ordenes', OrdenController::class);
 Route::resource('equipos', EquipoController::class);
+Route::resource('equiposdetrabajo', EquiposDeTrabajoController::class);
 Route::resource('clientes', ClienteController::class);
 Route::get('/clientes/inactivos',
 [ClienteController::class, 'inactivos'])->name('clientes.inactivos');

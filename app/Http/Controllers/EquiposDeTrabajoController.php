@@ -5,6 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\EquiposDeTrabajo;
 use App\Http\Requests\StoreEquiposDeTrabajoRequest;
 use App\Http\Requests\UpdateEquiposDeTrabajoRequest;
+use App\Models\Vehiculo;
+use App\Models\Equipo;
+use App\Models\Tecnico;
 
 class EquiposDeTrabajoController extends Controller
 {
@@ -13,7 +16,8 @@ class EquiposDeTrabajoController extends Controller
      */
     public function index()
     {
-        //
+        $equiposdetrabajo=EquiposDeTrabajo::latest()->paginate(20);
+        return view('equiposDeTrabajo.index', ['equiposdetrabajo'=>$equiposdetrabajo]);
     }
 
     /**
@@ -21,7 +25,10 @@ class EquiposDeTrabajoController extends Controller
      */
     public function create()
     {
-        //
+        $equipos = Equipo::where('estado', true)->get();
+        $tecnicos = Tecnico::where('estado', true)->get();
+        $vehiculos = Vehiculo::all();
+        return view('equiposDeTrabajo.create', compact('equipos','tecnicos','vehiculos'));
     }
 
     /**
@@ -29,7 +36,11 @@ class EquiposDeTrabajoController extends Controller
      */
     public function store(StoreEquiposDeTrabajoRequest $request)
     {
-        //
+        $fields = $request->only(['vehiculo_id', 'equipo_id','tecnico_id']);
+
+        EquiposDeTrabajo::create($fields);
+
+        return redirect()->route('equiposdetrabajo.index')->with('success', 'Equipo de Trabajo creado exitosamente.');
     }
 
     /**
@@ -61,6 +72,7 @@ class EquiposDeTrabajoController extends Controller
      */
     public function destroy(EquiposDeTrabajo $equiposDeTrabajo)
     {
-        //
+        $equiposDeTrabajo->delete();
+        return back()->with('success', 'Equipo de Trabajo eliminado exitosamente.');
     }
 }
