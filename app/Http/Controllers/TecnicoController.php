@@ -13,7 +13,7 @@ class TecnicoController extends Controller
      */
     public function index()
     {
-        $tecnicos=Tecnico::latest()->paginate(20);
+        $tecnicos=Tecnico::where('estado', true)->latest()->paginate(20);
         return view('tecnicos.index', ['tecnicos'=>$tecnicos]);
     }
 
@@ -30,7 +30,8 @@ class TecnicoController extends Controller
      */
     public function store(StoreTecnicoRequest $request)
     {
-        $fields = $request->only(['nombre', 'apellido','DNI','telefono','correo']);
+        $fields = $request->only(['nombre', 'apellido','DNI','CUIL','telefono','correo']);
+        $fields['estado'] = true;
 
         Tecnico::create($fields);
 
@@ -58,7 +59,7 @@ class TecnicoController extends Controller
      */
     public function update(UpdateTecnicoRequest $request, Tecnico $tecnico)
     {
-        $fields = $request->only(['nombre', 'apellido','DNI','telefono','correo']);
+        $fields = $request->only(['nombre', 'apellido','DNI','CUIL','telefono','correo']);
 
         $tecnico->update($fields);
 
@@ -70,7 +71,7 @@ class TecnicoController extends Controller
      */
     public function destroy(Tecnico $tecnico)
     {
-        $tecnico->delete();
+        $tecnico->update(['estado' => false]);
         return back()->with('success', 'Tecnico exterminado exitosamente.');
     }
 }

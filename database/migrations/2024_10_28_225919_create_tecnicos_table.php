@@ -16,8 +16,10 @@ return new class extends Migration
             $table->string('nombre');
             $table->string('apellido');
             $table->string('DNI');
+            $table->string('CUIL');
             $table->string('telefono');
             $table->string('correo');
+            $table->boolean('estado');
             $table->timestamps();
         });
     }

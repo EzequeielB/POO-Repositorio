@@ -15,6 +15,7 @@
             <th>Nombre</th>
             <th>Apellido</th>
             <th>DNI</th>
+            <th>CUIL</th>
             <th>Telefono</th>
             <th>Correo</th>
         </tr>
@@ -23,12 +24,13 @@
                 <th>{{ $tecnico->nombre }}</th>
                 <th>{{ $tecnico->apellido }}</th>
                 <td>{{ $tecnico->DNI }}</td>
+                <td>{{ $tecnico->CUIL }}</td>
                 <td>{{ $tecnico->telefono}}</td>
                 <td>{{ $tecnico->correo}}</td>
                 <th>
                     <a href="{{route("tecnicos.edit", $tecnico)}}" class="text-white bg-blue-700 hover:bg-blue-800 focus:ring-4 focus:ring-blue-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-blue-600 dark:hover:bg-blue-700 focus:outline-none dark:focus:ring-blue-800">Editar</a>
                     
-                    <form action={{route("tecnicos.destroy", $tecnico)}} method="post">
+                    <form action="{{ route('tecnicos.destroy', $tecnico) }}" method="post" onsubmit="return confirm('¿Estás seguro de que deseas eliminar este tecnico?');">
                         @csrf
                         @method("DELETE")
                         <button class="focus:outline-none text-white bg-red-700 hover:bg-red-800 focus:ring-4 focus:ring-red-300 font-medium rounded-lg text-sm px-5 py-2.5 me-2 mb-2 dark:bg-red-600 dark:hover:bg-red-700 dark:focus:ring-red-900"> Eliminar </button>

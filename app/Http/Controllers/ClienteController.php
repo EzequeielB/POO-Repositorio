@@ -13,8 +13,14 @@ class ClienteController extends Controller
      */
     public function index()
     {
-        $clientes=Cliente::latest()->paginate(20);
+        $clientes=Cliente::where('estado', true)->latest()->paginate(20);
         return view('clientes.index', ['clientes'=>$clientes]);
+    }
+
+    public function inactivos()
+    {
+        $clientes = Cliente::where('estado', false)->latest()->paginate(20);
+        return view('clientes.inactivos', ['clientes' => $clientes]);
     }
 
     /**
@@ -31,7 +37,7 @@ class ClienteController extends Controller
     public function store(StoreClienteRequest $request)
     {
         $fields = $request->only(['nombre', 'apellido','DNI','telefono','correo']);
-
+        $fields['estado'] = true;
         Cliente::create($fields);
 
         return redirect()->route('clientes.index')->with('success', 'Cliente agregado exitosamente.');
@@ -59,7 +65,7 @@ class ClienteController extends Controller
     public function update(UpdateClienteRequest $request, Cliente $cliente)
     {
         $fields = $request->only(['nombre', 'apellido','DNI','telefono','correo']);
-
+    
         $cliente->update($fields);
 
         return redirect()->route('clientes.index')->with('success', 'Cliente editado exitosamente.');
@@ -70,7 +76,13 @@ class ClienteController extends Controller
      */
     public function destroy(Cliente $cliente)
     {
-        $cliente->delete();
+        $cliente->update(['estado' => false]);
         return back()->with('success', 'Cliente exterminado exitosamente.');
+    }
+
+    public function up(Cliente $cliente)
+    {
+        $cliente->update(['estado' => true]);
+        return back()->with('success', 'Cliente reavilitado exitosamente.');
     }
 }

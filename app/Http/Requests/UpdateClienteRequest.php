@@ -22,11 +22,11 @@ class UpdateClienteRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'nombre'=>'required|string|max:30',
-            'apellido'=>'required|string|max:30',
-            'DNI'=>'required|string|max:20',
-            'telefono' => 'required|integer|digits_between:8,15',
-            'correo'=>'required|string|max:150',
+            'nombre' => 'required|string|max:30',
+            'apellido' => 'required|string|max:30',
+            'DNI' => 'required|string|max:20|unique:clientes,DNI,' . $this->route('cliente')->id,
+            'telefono' => 'required|integer|digits_between:8,15|unique:clientes,telefono,' . $this->route('cliente')->id,
+            'correo' => 'required|string|max:150|unique:clientes,correo,' . $this->route('cliente')->id,
         ];
     }
 }

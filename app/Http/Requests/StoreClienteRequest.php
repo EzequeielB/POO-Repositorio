@@ -24,9 +24,9 @@ class StoreClienteRequest extends FormRequest
         return [
             'nombre'=>'required|string|max:30',
             'apellido'=>'required|string|max:30',
-            'DNI'=>'required|string|max:20',
-            'telefono' => 'required|integer|digits_between:8,15',
-            'correo'=>'required|string|max:150',
+            'DNI'=>'required|string|max:20|unique:clientes',
+            'telefono' => 'required|integer|digits_between:8,15|unique:clientes',
+            'correo'=>'required|string|max:150|unique:clientes',
         ];
     }
 }

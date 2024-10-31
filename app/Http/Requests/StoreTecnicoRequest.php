@@ -24,9 +24,10 @@ class StoreTecnicoRequest extends FormRequest
         return [
             'nombre'=>'required|string|max:30',
             'apellido'=>'required|string|max:30',
-            'DNI'=>'required|string|max:20',
-            'telefono' => 'required|integer|digits_between:8,15',
-            'correo'=>'required|string|max:150',
+            'DNI'=>'required|string|max:20|unique:tecnicos',
+            'CUIL'=>'required|string|max:20|unique:tecnicos',
+            'telefono' => 'required|integer|digits_between:8,15|unique:tecnicos',
+            'correo'=>'required|string|max:150|unique:tecnicos',
         ];
     }
 }

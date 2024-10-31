@@ -11,7 +11,9 @@ class Tecnico extends Model
         'nombre',
         'apellido',
         'DNI',
+        'CUIL',
         'telefono',
-        'correo'
+        'correo',
+        'estado'
     ];
 }

@@ -18,6 +18,7 @@ return new class extends Migration
             $table->string('DNI');
             $table->string('telefono');
             $table->string('correo');
+            $table->boolean('estado');
             $table->timestamps();
         });
     }

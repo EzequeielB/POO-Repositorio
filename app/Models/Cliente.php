@@ -12,6 +12,7 @@ class Cliente extends Model
         'apellido',
         'DNI',
         'telefono',
-        'correo'
+        'correo',
+        'estado',
     ];
 }

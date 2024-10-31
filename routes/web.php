@@ -12,6 +12,11 @@ Route::view('/','posts.index')->name('home');
 Route::resource('vehiculos', VehiculoController::class);
 Route::resource('ordenes', OrdenController::class);
 Route::resource('clientes', ClienteController::class);
+Route::get('/clientes/inactivos',
+[ClienteController::class, 'inactivos'])->name('clientes.inactivos');
+
+Route::post('/clientes/{cliente}/rehabilitar', [ClienteController::class, 'up'])->name('clientes.rehabilitar');
+
 Route::resource('tecnicos', TecnicoController::class);
 
 Route::middleware('guest')->group(function(){

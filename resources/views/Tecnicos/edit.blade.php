@@ -32,6 +32,15 @@
             @enderror
         </div>
 
+        {{--CUIL--}}
+        <div class=" mb-4">
+            <label for="CUIL">CUIL</label>
+            <input type="text" name="CUIL" class="input" value="{{$tecnico->CUIL}}">
+            @error('CUIL')
+                <p class="error">{{$message}}</p>
+            @enderror
+        </div>
+
             {{--telefono--}}
         <div class=" mb-4">
             <label for="telefono">telefono</label>
