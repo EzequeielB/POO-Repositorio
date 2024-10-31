@@ -11,7 +11,7 @@ class UpdateEquipoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class UpdateEquipoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nombre' => 'required|string|max:30|unique:equipos,nombre,' . $this->route('equipo')->id,
+
         ];
     }
 }

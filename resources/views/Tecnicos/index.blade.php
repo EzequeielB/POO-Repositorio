@@ -18,6 +18,7 @@
             <th>CUIL</th>
             <th>Telefono</th>
             <th>Correo</th>
+            <th>Opciones</th>
         </tr>
         @foreach ($tecnicos as $tecnico )
         <tr>

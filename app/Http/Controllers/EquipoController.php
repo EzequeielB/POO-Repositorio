@@ -13,7 +13,8 @@ class EquipoController extends Controller
      */
     public function index()
     {
-        //
+        $equipos = Equipo::where('estado', true)->latest()->paginate(20);
+        return view('equipos.index', ['equipos' => $equipos]);
     }
 
     /**
@@ -21,7 +22,7 @@ class EquipoController extends Controller
      */
     public function create()
     {
-        //
+        return view('equipos.create');
     }
 
     /**
@@ -29,7 +30,11 @@ class EquipoController extends Controller
      */
     public function store(StoreEquipoRequest $request)
     {
-        //
+        $fields = $request->only(['nombre']);
+        $fields['estado'] = true;
+        Equipo::create($fields);
+
+        return redirect()->route('equipos.index')->with('success', 'Equipo agregado exitosamente.');
     }
 
     /**
@@ -45,7 +50,7 @@ class EquipoController extends Controller
      */
     public function edit(Equipo $equipo)
     {
-        //
+        return view("equipos.edit",['cliente'=>$equipo]);
     }
 
     /**
@@ -53,7 +58,11 @@ class EquipoController extends Controller
      */
     public function update(UpdateEquipoRequest $request, Equipo $equipo)
     {
-        //
+        $fields = $request->only(['nombre']);
+    
+        $equipo->update($fields);
+
+        return redirect()->route('clientes.index')->with('success', 'Equipo editado exitosamente.');
     }
 
     /**
@@ -61,6 +70,7 @@ class EquipoController extends Controller
      */
     public function destroy(Equipo $equipo)
     {
-        //
+        $equipo->update(['estado' => false]);
+        return back()->with('success', 'Equipo Eliminado exitosamente.');
     }
 }
