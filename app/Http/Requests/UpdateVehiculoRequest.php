@@ -11,7 +11,7 @@ class UpdateVehiculoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,8 @@ class UpdateVehiculoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'patente'        => 'required|string|max:255|unique:vehiculos',
+            'chasis'         => 'required|string|max:255|unique:vehiculos',
         ];
     }
 }

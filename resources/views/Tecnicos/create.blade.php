@@ -1,8 +1,8 @@
 <x-layout/>
-<h1 class=" title">Registrar Cliente</h1>
+<h1 class=" title">Registrar Tecnico</h1>
 
 <div class=" mx-auto max-w-screen-sm card">
-    <form action="{{route('clientes.store')}}" method="post">
+    <form action="{{route('tecnicos.store')}}" method="post">
          
         @csrf
         

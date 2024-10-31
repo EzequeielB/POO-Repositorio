@@ -11,7 +11,7 @@ class UpdateTecnicoRequest extends FormRequest
      */
     public function authorize(): bool
     {
-        return false;
+        return true;
     }
 
     /**
@@ -22,7 +22,11 @@ class UpdateTecnicoRequest extends FormRequest
     public function rules(): array
     {
         return [
-            //
+            'nombre'=>'required|string|max:30',
+            'apellido'=>'required|string|max:30',
+            'DNI'=>'required|string|max:20',
+            'telefono' => 'required|integer|digits_between:8,15',
+            'correo'=>'required|string|max:150',
         ];
     }
 }

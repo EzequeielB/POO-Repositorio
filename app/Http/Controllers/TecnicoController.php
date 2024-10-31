@@ -13,7 +13,8 @@ class TecnicoController extends Controller
      */
     public function index()
     {
-        //
+        $tecnicos=Tecnico::latest()->paginate(20);
+        return view('tecnicos.index', ['tecnicos'=>$tecnicos]);
     }
 
     /**
@@ -21,7 +22,7 @@ class TecnicoController extends Controller
      */
     public function create()
     {
-        //
+        return view('tecnicos.create');
     }
 
     /**
@@ -29,7 +30,11 @@ class TecnicoController extends Controller
      */
     public function store(StoreTecnicoRequest $request)
     {
-        //
+        $fields = $request->only(['nombre', 'apellido','DNI','telefono','correo']);
+
+        Tecnico::create($fields);
+
+        return redirect()->route('tecnicos.index')->with('success', 'Tecnico agregado exitosamente.');
     }
 
     /**
@@ -45,7 +50,7 @@ class TecnicoController extends Controller
      */
     public function edit(Tecnico $tecnico)
     {
-        //
+        return view("tecnicos.edit",['tecnico'=>$tecnico]);
     }
 
     /**
@@ -53,7 +58,11 @@ class TecnicoController extends Controller
      */
     public function update(UpdateTecnicoRequest $request, Tecnico $tecnico)
     {
-        //
+        $fields = $request->only(['nombre', 'apellido','DNI','telefono','correo']);
+
+        $tecnico->update($fields);
+
+        return redirect()->route('tecnicos.index')->with('success', 'Tecnico editado exitosamente.');
     }
 
     /**
@@ -61,6 +70,7 @@ class TecnicoController extends Controller
      */
     public function destroy(Tecnico $tecnico)
     {
-        //
+        $tecnico->delete();
+        return back()->with('success', 'Tecnico exterminado exitosamente.');
     }
 }
